@@ -7,6 +7,7 @@ IMAGE_NAME="qgc-android-docker"
 BUILD_TYPE="${1:-Release}"
 
 docker build \
+  --platform linux/amd64 \
   --file "${SCRIPT_DIR}/Dockerfile-build-android" \
   -t "${IMAGE_NAME}" \
   "${SOURCE_DIR}"

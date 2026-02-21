@@ -35,6 +35,7 @@ mkdir -p "${BUILD_DIR}"
 
 docker run \
     --rm \
+    --platform linux/amd64 \
     ${FUSE_FLAGS[@]+"${FUSE_FLAGS[@]}"} \
     -v "${SOURCE_DIR}:/project/source" \
     -v "${BUILD_DIR}:/project/build" \

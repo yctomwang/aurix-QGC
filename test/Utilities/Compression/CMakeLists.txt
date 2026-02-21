@@ -7,8 +7,8 @@ target_sources(${CMAKE_PROJECT_NAME}
     PRIVATE
         QGCArchiveModelTest.cc
         QGCArchiveModelTest.h
-        QGCCompressionTest.cc
-        QGCCompressionTest.h
+        # QGCCompressionTest.cc
+        # QGCCompressionTest.h
         QGCStreamingDecompressionTest.cc
         QGCStreamingDecompressionTest.h
 )

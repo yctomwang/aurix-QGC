@@ -46,6 +46,7 @@ Item {
     property real   _rightPanelWidth:       ScreenTools.defaultFontPixelWidth * 30
     property var    _mapControl:            mapControl
     property real   _widgetMargin:          ScreenTools.defaultFontPixelWidth * 0.75
+    property bool   _showPointCloudPanel:   true
 
     property real   _fullItemZorder:    0
     property real   _pipItemZorder:     QGroundControl.zOrderWidgets
@@ -86,6 +87,31 @@ Item {
         FlyViewVideo {
             id:         videoControl
             pipView:    _pipView
+        }
+
+        FlyViewPointCloud {
+            id:                 pointCloudPanel
+            anchors.right:      parent.right
+            anchors.bottom:     parent.bottom
+            anchors.margins:    _toolsMargin
+            width:              parent.width * 0.5
+            height:             parent.height * 0.7
+            z:                  _fullItemZorder + 3
+            visible:            _showPointCloudPanel && !QGroundControl.videoManager.fullScreen
+        }
+
+        QGCButton {
+            id:                 pointCloudToggle
+            anchors.right:      pointCloudPanel.right
+            anchors.bottom:     pointCloudPanel.top
+            anchors.margins:    _toolsMargin
+            text:               pointCloudPanel.visible ? qsTr("Hide Point Cloud") : qsTr("Show Point Cloud")
+            z:                  pointCloudPanel.z + 1
+            visible:            !QGroundControl.videoManager.fullScreen
+
+            onClicked: {
+                _showPointCloudPanel = !pointCloudPanel.visible
+            }
         }
 
         PipView {

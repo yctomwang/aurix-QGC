@@ -23,6 +23,9 @@
 
 int main(int argc, char *argv[])
 {
+    // Force allow local file access via XHR for point cloud POC
+    qputenv("QML_XHR_ALLOW_FILE_READ", "1");
+
 #if 0
     // Useful for debugging specific unit tests
     char argument1[] = "--unittest:FTPManagerTest";

@@ -33,6 +33,10 @@ qt_add_qml_module(FlyViewModule
         FlyViewMissionCompleteDialog.qml
         FlyViewPointCloud.qml
         FlyViewPointCloudData.js
+        FlyViewStreamCloud.qml
+        FlyViewStreamCloudData.js
+        FlyViewStreamCloudWindow.qml
+        FlyViewZlib.js
         FlyViewPreFlightChecklistPopup.qml
         FlyViewToolStrip.qml
         FlyViewToolStripActionList.qml

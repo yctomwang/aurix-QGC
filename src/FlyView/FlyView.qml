@@ -46,7 +46,7 @@ Item {
     property real   _rightPanelWidth:       ScreenTools.defaultFontPixelWidth * 30
     property var    _mapControl:            mapControl
     property real   _widgetMargin:          ScreenTools.defaultFontPixelWidth * 0.75
-    property bool   _showPointCloudPanel:   true
+    property bool   _showPointCloudPanel:   false
 
     property real   _fullItemZorder:    0
     property real   _pipItemZorder:     QGroundControl.zOrderWidgets
@@ -89,28 +89,30 @@ Item {
             pipView:    _pipView
         }
 
-        FlyViewPointCloud {
-            id:                 pointCloudPanel
-            anchors.right:      parent.right
-            anchors.bottom:     parent.bottom
-            anchors.margins:    _toolsMargin
-            width:              parent.width * 0.5
-            height:             parent.height * 0.7
-            z:                  _fullItemZorder + 3
-            visible:            _showPointCloudPanel && !QGroundControl.videoManager.fullScreen
+        // Stream Cloud — opens as a separate OS window on demand
+        Loader {
+            id:     streamCloudWindowLoader
+            active: false
+            source: "FlyViewStreamCloudWindow.qml"
+
+            onLoaded: item.show()
         }
 
         QGCButton {
-            id:                 pointCloudToggle
-            anchors.right:      pointCloudPanel.right
-            anchors.bottom:     pointCloudPanel.top
-            anchors.margins:    _toolsMargin
-            text:               pointCloudPanel.visible ? qsTr("Hide Point Cloud") : qsTr("Show Point Cloud")
-            z:                  pointCloudPanel.z + 1
-            visible:            !QGroundControl.videoManager.fullScreen
+            anchors.right:   parent.right
+            anchors.bottom:  parent.bottom
+            anchors.margins: _toolsMargin
+            text:            qsTr("Point Cloud")
+            z:               _fullItemZorder + 3
+            visible:         !QGroundControl.videoManager.fullScreen
 
             onClicked: {
-                _showPointCloudPanel = !pointCloudPanel.visible
+                if (!streamCloudWindowLoader.active) {
+                    streamCloudWindowLoader.active = true
+                } else {
+                    streamCloudWindowLoader.item.show()
+                    streamCloudWindowLoader.item.raise()
+                }
             }
         }
 
